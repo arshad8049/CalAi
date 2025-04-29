@@ -1,20 +1,19 @@
-# backend/database.py
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import DATABASE_URL
+from backend.config import DATABASE_URL
+
+# Configure engine args
+engine_args = {"echo": True}
+if DATABASE_URL.startswith("sqlite"):
+    engine_args["connect_args"] = {"check_same_thread": False}
 
 # Create engine
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, **engine_args)
 
-# Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Base class for model definitions
 Base = declarative_base()
 
-# Dependency to inject DB session
 def get_db():
     db = SessionLocal()
     try:
