@@ -1,0 +1,51 @@
+# Python environment
+venv/
+.env
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Local SQLite database
+calai.db
+*.db
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Expo / React Native
+.expo/
+.expo-shared/
+
+# iOS / Xcode
+ios/Pods/
+ios/Podfile.lock
+ios/build/
+*.xcworkspace
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+
+# macOS
+.DS_Store
+
+# Swap files
+*.swp
