@@ -48,3 +48,78 @@ CalAi is a cross-platform calorie tracking application for iOS built with React 
    ```bash
    npm run ios
    ```
+
+## Environment Variables
+
+Before running the backend, set the following (e.g. in your shell or a `.env` file):
+
+```bash
+export CALORIENINJAS_API_KEY="your_api_key_here"
+export DATABASE_URL="sqlite:///./calai.db"  # or your production Postgres URL
+```
+
+## API Reference
+
+### Nutrition Estimation (Dry Run)
+- **Endpoint**: `POST /api/estimate`
+- **Request Body**:
+  ```json
+  { "description": "meal description" }
+  ```
+- **Response**:
+  ```json
+  {
+    "calories": 123.4,
+    "protein": 10.2,
+    "fat": 5.6,
+    "carbs": 15.8,
+    "fiber": 2.3
+  }
+  ```
+- **Description**: Returns the calorie and macro breakdown without saving to the database.
+
+### Create Meal Entry
+- **Endpoint**: `POST /api/meals`
+- **Request Body**:
+  ```json
+  { "description": "meal description" }
+  ```
+- **Response**:
+  ```json
+  {
+    "id": 1,
+    "description": "meal description",
+    "calories": 123.4,
+    "protein": 10.2,
+    "fat": 5.6,
+    "carbs": 15.8,
+    "fiber": 2.3,
+    "timestamp": "2025-05-03T21:14:28.112178"
+  }
+  ```
+- **Description**: Estimates and persists the nutrition data for a meal.
+
+### Get Meals by Date
+- **Endpoint**: `GET /api/meals?date_str=YYYY-MM-DD`
+- **Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "description": "meal description",
+      "calories": 123.4,
+      "protein": 10.2,
+      "fat": 5.6,
+      "carbs": 15.8,
+      "fiber": 2.3,
+      "timestamp": "2025-05-03T21:14:28.112178"
+    },
+    ...
+  ]
+  ```
+- **Description**: Retrieves all meal entries for the given date.
+
+## Next Steps
+
+- Backend is fully set up with nutrition endpoints and data persistence.
+- No further backend tasks remain—time to start frontend development!

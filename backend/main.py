@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 from datetime import date
 import backend.crud as crud
 import backend.schemas as schemas
-import backend.deepseek_inference as deepseek_inference
+from backend.schemas import Nutrition
+from backend.calorie_ninjas import estimate_calories
 from backend.database import engine, Base, get_db
 from backend.config import API_PREFIX
 
@@ -26,10 +27,18 @@ def health_check():
 
 @app.post(f"{API_PREFIX}/meals", response_model=schemas.Meal)
 def add_meal(meal: schemas.MealCreate, db: Session = Depends(get_db)):
-    """Endpoint to log a meal with AI-based calorie estimation."""
-    calories = deepseek_inference.estimate_calories(meal.description)
-    db_meal = crud.create_meal(db, meal, calories)
+    """Endpoint to log a meal with API-based calorie & macro estimation."""
+    nutrition = estimate_calories(meal.description)
+    db_meal = crud.create_meal(db, meal, nutrition)
     return db_meal
+
+@app.post(f"{API_PREFIX}/estimate", response_model=Nutrition)
+def estimate_meal(meal: schemas.MealCreate):
+    """
+    Dry-run endpoint: estimate nutrition without storing to database.
+    """
+    nutrition = estimate_calories(meal.description)
+    return Nutrition(**nutrition)
 
 @app.get(f"{API_PREFIX}/meals", response_model=list[schemas.Meal])
 def read_meals(date_str: str, db: Session = Depends(get_db)):

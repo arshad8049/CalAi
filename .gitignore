@@ -49,3 +49,13 @@ android/build/
 
 # Swap files
 *.swp
+
+# Python testing and coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+
+# Local env overrides
+.env.local
+.env.*.local

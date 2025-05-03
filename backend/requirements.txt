@@ -4,3 +4,8 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 torch
+transformers
+accelerate
+bitsandbytes
+vllm
+requests

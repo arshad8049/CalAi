@@ -3,10 +3,14 @@ import backend.models as models
 import backend.schemas as schemas
 from datetime import date, datetime, timedelta
 
-def create_meal(db: Session, meal: schemas.MealCreate, calories: float):
+def create_meal(db: Session, meal: schemas.MealCreate, nutrition: dict):
     db_meal = models.Meal(
         description=meal.description,
-        calories=calories
+        calories=nutrition.get("calories", 0.0),
+        protein=nutrition.get("protein", 0.0),
+        fat=nutrition.get("fat", 0.0),
+        carbs=nutrition.get("carbs", 0.0),
+        fiber=nutrition.get("fiber", 0.0)
     )
     db.add(db_meal)
     db.commit()

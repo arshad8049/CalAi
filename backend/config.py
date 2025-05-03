@@ -8,3 +8,6 @@ DEEPSEEK_MODEL_PATH = os.getenv("DEEPSEEK_MODEL_PATH", "/Users/Arshad_1/Library/
 
 # API prefix for all endpoints
 API_PREFIX = "/api"
+
+CALORIENINJAS_API_KEY = os.getenv("CALORIENINJAS_API_KEY", "")
+CALORIENINJAS_URL     = "https://api.calorieninjas.com/v1/nutrition"
